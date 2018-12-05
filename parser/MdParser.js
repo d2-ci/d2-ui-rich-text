@@ -104,8 +104,6 @@ var MdParser = function () {
     _createClass(MdParser, [{
         key: "render",
         value: function render(text) {
-            // console.log('');
-
             return md.renderInline(text);
         }
     }]);

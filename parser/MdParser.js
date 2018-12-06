@@ -13,7 +13,7 @@ var emojiDb = {
 
 var codes = {
     bold: {
-        name: 'bold',
+        name: "bold",
         char: "*",
         domEl: "strong",
         encodedChar: 0x2a,

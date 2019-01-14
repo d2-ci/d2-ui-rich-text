@@ -1,5 +1,3 @@
-var _this = this;
-
 var state = {
     boldMode: false,
     italicMode: false,
@@ -37,7 +35,7 @@ var insertMarkers = function insertMarkers(mode, cb) {
     } else if (selectionStart >= 0) {
         newValue = [value.slice(0, selectionStart), value.slice(selectionStart, selectionEnd), value.slice(selectionEnd)].join(marker);
 
-        _this.toggleMode(mode);
+        toggleMode(mode);
     }
 
     cb(newValue);

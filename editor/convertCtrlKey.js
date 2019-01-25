@@ -90,8 +90,10 @@ var convertCtrlKey = function convertCtrlKey(event, cb) {
     state.element = element;
 
     if (key === "b" && (ctrlKey || metaKey)) {
+        event.preventDefault();
         insertMarkers("bold", cb);
     } else if (key === "i" && (ctrlKey || metaKey)) {
+        event.preventDefault();
         insertMarkers("italic", cb);
     }
 };

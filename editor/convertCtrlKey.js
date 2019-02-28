@@ -1,3 +1,8 @@
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
 var state = {
     boldMode: false,
     italicMode: false,
@@ -98,4 +103,4 @@ var convertCtrlKey = function convertCtrlKey(event, cb) {
     }
 };
 
-export default convertCtrlKey;
+exports.default = convertCtrlKey;

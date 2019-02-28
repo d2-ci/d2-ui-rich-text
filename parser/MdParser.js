@@ -1,6 +1,22 @@
-import _classCallCheck from "babel-runtime/helpers/classCallCheck";
-import _createClass from "babel-runtime/helpers/createClass";
-import MarkdownIt from "markdown-it";
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _classCallCheck2 = require("babel-runtime/helpers/classCallCheck");
+
+var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
+
+var _createClass2 = require("babel-runtime/helpers/createClass");
+
+var _createClass3 = _interopRequireDefault(_createClass2);
+
+var _markdownIt = require("markdown-it");
+
+var _markdownIt2 = _interopRequireDefault(_markdownIt);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var emojiDb = {
     ":-)": "\uD83D\uDE42",
@@ -82,10 +98,10 @@ var md = void 0;
 
 var MdParser = function () {
     function MdParser() {
-        _classCallCheck(this, MdParser);
+        (0, _classCallCheck3.default)(this, MdParser);
 
         // disable all rules, enable autolink for URLs and email addresses
-        md = new MarkdownIt("zero", { linkify: true });
+        md = new _markdownIt2.default("zero", { linkify: true });
 
         // *bold* -> <strong>bold</strong>
         md.inline.ruler.push("strong", parse(codes.bold.name));
@@ -101,14 +117,13 @@ var MdParser = function () {
         return this;
     }
 
-    _createClass(MdParser, [{
+    (0, _createClass3.default)(MdParser, [{
         key: "render",
         value: function render(text) {
             return md.renderInline(text);
         }
     }]);
-
     return MdParser;
 }();
 
-export default MdParser;
+exports.default = MdParser;

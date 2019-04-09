@@ -10,7 +10,7 @@
     "test-ci": "jest --config=../../jest.config.js packages/rich-text",
     "lint": "eslint src/",
     "prebuild": "npm run lint && rimraf ./build/*",
-    "build": "cross-env BABEL_ENV=es babel src --out-dir build --ignore spec.js",
+    "build": "babel src --out-dir build --ignore spec.js",
     "watch": "yarn build --  --watch"
   },
   "repository": {
@@ -29,6 +29,6 @@
   "publishConfig": {
     "access": "public"
   },
-  "version": "5.1.0",
+  "version": "5.3.1",
   "private": false
 }

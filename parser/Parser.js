@@ -58,12 +58,12 @@ var Parser = function (_Component) {
                 style = _props.style;
 
 
-            return _react2.default.createElement('p', {
+            return children ? _react2.default.createElement('p', {
                 style: style,
                 dangerouslySetInnerHTML: {
                     __html: this.MdParser.render(children)
                 }
-            });
+            }) : null;
         }
     }]);
     return Parser;

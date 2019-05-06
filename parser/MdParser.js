@@ -33,7 +33,7 @@ var codes = {
         char: "*",
         domEl: "strong",
         encodedChar: 0x2a,
-        regexString: "^\\*((?!\\s)[^*]+(?:[^\\s]))\\*",
+        regexString: "(?<!\\S)\\*((?!\\s)[^*]+(?:[^\\s]))\\*(?!\\S)",
         contentFn: function contentFn(val) {
             return val;
         }
@@ -43,7 +43,7 @@ var codes = {
         char: "_",
         domEl: "em",
         encodedChar: 0x5f,
-        regexString: "^_((?!\\s)[^_]+(?:[^\\s]))_",
+        regexString: "(?<!\\S)_((?!\\s)[^_]+(?:[^\\s]))_(?!\\S)",
         contentFn: function contentFn(val) {
             return val;
         }
@@ -61,10 +61,10 @@ var codes = {
 };
 
 var md = void 0;
-var linksDb = void 0;
+var linksInText = void 0;
 
 var markerIsInLinkText = function markerIsInLinkText(pos) {
-    return linksDb.some(function (link) {
+    return linksInText.some(function (link) {
         return pos >= link.index && pos <= link.lastIndex;
     });
 };
@@ -133,10 +133,7 @@ var MdParser = function () {
     (0, _createClass3.default)(MdParser, [{
         key: "render",
         value: function render(text) {
-            // find links in text for skipping parsing of URLs
-            // URLs may contain _ characters, they should not be parsed as italic markers
-            // See DHIS2-6821.
-            linksDb = md.linkify.match(text) || [];
+            linksInText = md.linkify.match(text) || [];
 
             return md.renderInline(text);
         }

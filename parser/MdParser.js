@@ -92,6 +92,12 @@ var parse = function parse(code) {
 
         if (MARKER_REGEX.test(token)) {
             var markerMatch = token.match(MARKER_REGEX);
+
+            // skip parsing sections where the marker is not at the start of the token
+            if (markerMatch.index !== 0) {
+                return false;
+            }
+
             var text = markerMatch[1];
 
             state.push(codes[code].domEl + "_open", codes[code].domEl, 1);

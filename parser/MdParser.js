@@ -33,7 +33,7 @@ var codes = {
         char: "*",
         domEl: "strong",
         encodedChar: 0x2a,
-        regexString: "^\\*((?!\\s)[^*]+(?:[^\\s]))\\*",
+        regexString: "(?<!\\S)\\*((?!\\s)[^*]+(?:[^\\s]))\\*(?!\\S)",
         contentFn: function contentFn(val) {
             return val;
         }
@@ -43,7 +43,7 @@ var codes = {
         char: "_",
         domEl: "em",
         encodedChar: 0x5f,
-        regexString: "^_((?!\\s)[^_]+(?:[^\\s]))_",
+        regexString: "(?<!\\S)_((?!\\s)[^_]+(?:[^\\s]))_(?!\\S)",
         contentFn: function contentFn(val) {
             return val;
         }
@@ -60,11 +60,26 @@ var codes = {
     }
 };
 
+var md = void 0;
+var linksInText = void 0;
+
+var markerIsInLinkText = function markerIsInLinkText(pos) {
+    return linksInText.some(function (link) {
+        return pos >= link.index && pos <= link.lastIndex;
+    });
+};
+
 var parse = function parse(code) {
     return function (state, silent) {
         if (silent) return false;
 
         var start = state.pos;
+
+        // skip parsing emphasis if marker is within a link
+        if (markerIsInLinkText(start)) {
+            return false;
+        }
+
         var marker = state.src.charCodeAt(start);
 
         // marker character: "_", "*", ":"
@@ -77,6 +92,12 @@ var parse = function parse(code) {
 
         if (MARKER_REGEX.test(token)) {
             var markerMatch = token.match(MARKER_REGEX);
+
+            // skip parsing sections where the marker is not at the start of the token
+            if (markerMatch.index !== 0) {
+                return false;
+            }
+
             var text = markerMatch[1];
 
             state.push(codes[code].domEl + "_open", codes[code].domEl, 1);
@@ -93,8 +114,6 @@ var parse = function parse(code) {
         return false;
     };
 };
-
-var md = void 0;
 
 var MdParser = function () {
     function MdParser() {
@@ -120,6 +139,8 @@ var MdParser = function () {
     (0, _createClass3.default)(MdParser, [{
         key: "render",
         value: function render(text) {
+            linksInText = md.linkify.match(text) || [];
+
             return md.renderInline(text);
         }
     }]);

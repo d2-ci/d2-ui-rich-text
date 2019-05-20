@@ -33,7 +33,8 @@ var codes = {
         char: "*",
         domEl: "strong",
         encodedChar: 0x2a,
-        regexString: "(?<!\\S)\\*((?!\\s)[^*]+(?:[^\\s]))\\*(?!\\S)",
+        // see https://regex101.com/r/evswdV/1 for explanation of regexp
+        regexString: "(?:(?!\\S).|^)\\*((?!\\s)[^*]+(?:[^\\s]))\\*(?!\\S)",
         contentFn: function contentFn(val) {
             return val;
         }
@@ -43,7 +44,8 @@ var codes = {
         char: "_",
         domEl: "em",
         encodedChar: 0x5f,
-        regexString: "(?<!\\S)_((?!\\s)[^_]+(?:[^\\s]))_(?!\\S)",
+        // see https://regex101.com/r/evswdV/1 for explanation of regexp
+        regexString: "(?:(?!\\S).|^)_((?!\\s)[^_]+(?:[^\\s]))_(?!\\S)",
         contentFn: function contentFn(val) {
             return val;
         }

@@ -33,8 +33,8 @@ var codes = {
         char: "*",
         domEl: "strong",
         encodedChar: 0x2a,
-        // see https://regex101.com/r/evswdV/6 for explanation of regexp
-        regexString: "\\B\\*((?!\\s)[^*]+)\\b\\*\\B",
+        // see https://regex101.com/r/evswdV/8 for explanation of regexp
+        regexString: "\\B\\*((?!\\s)[^*]+(?:\\b|[^*\\s]))\\*\\B",
         contentFn: function contentFn(val) {
             return val;
         }
